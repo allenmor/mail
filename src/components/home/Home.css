@@ -26,16 +26,14 @@
     width: 50vh;
 }
 
-.mail-content {
-    width: 75%;
-    height: 80%;
-    vertical-align: top;
-}
-.mail-form {
-    height: 100vh;
+.text-editor-div{
+    border: 1px solid black;
+    padding: 5px;
 }
 
-
+.dropdowns {
+    border-bottom: 1px solid black;
+}
 @media (max-width: 600px) {
     /* styles to apply when viewport width is less than 600px */
     .flagImg{

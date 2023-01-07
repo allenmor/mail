@@ -4,7 +4,8 @@ import { db } from "../../firebase";
 import { useState, useEffect } from "react";
 import flagPic from "../../images/americanflagpost.jpeg";
 import "./Home.css";
-import { Editor, EditorState, ContentState } from 'draft-js';
+import { Editor, EditorState, ContentState } from "draft-js";
+import TextEditor from "./TextEditor";
 
 function Home() {
   const [mail, setMail] = useState([]);
@@ -16,7 +17,6 @@ function Home() {
     const getMail = async () => {
       const data = await getDocs(mailCollection);
       setMail(data.docs.map((doc, i) => ({ ...doc.data(), id: doc.id })));
-      console.log(mail);
     };
     getMail();
   }, []);
@@ -43,63 +43,50 @@ function Home() {
 
   const createMail = async () => {
     await addDoc(mailCollection, state);
-    console.log(state);
   };
   // Function to handle form submission
   const handleSubmit = (event) => {
     event.preventDefault();
     // Do something with the form data
-
     createMail();
   };
 
+  //WHEN FLAG CLICKED ON
   function handleFlagClick() {
     setClicked(true);
+    sessionStorage.setItem("clicked", true);
   }
-
-  //EDITOR
-  // Use the useState hook to initialize the state object for the editor
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-
-  // Use the useEffect hook to retrieve saved text from sessionStorage and restore it to the editor
   useEffect(() => {
-    const savedText = sessionStorage.getItem('savedText');
-    if (savedText) {
-      setEditorState(
-        EditorState.createWithContent(
-          ContentState.createFromText(savedText)
-        )
-      );
+    // Get the saved value of clicked from sessionStorage
+    const savedClicked = sessionStorage.getItem("clicked");
+    // If the value is saved in sessionStorage, set the clicked state to the saved value
+    if (savedClicked) {
+      setClicked(savedClicked);
     }
   }, []);
 
-  // Use the useEffect hook to save the text in the editor to sessionStorage
-  useEffect(() => {
-    const currentContent = editorState.getCurrentContent();
-    const text = currentContent.getPlainText();
-    sessionStorage.setItem('savedText', text);
-  }, [editorState]);
-
-  // Define an onChange handler for the editor
-
-  const onChange = (newEditorState) => {
-    setEditorState(newEditorState);
-    const currentContent = newEditorState.getCurrentContent();
-    const text = currentContent.getPlainText();
-    console.log(text);
+  // Use the useState hook to store the text typed in the TextEditor component
+  const [text, setText] = useState("");
+  // Define a function to update the text in the App component
+  const handleTextChange = (newText) => {
+    setText(newText);
   };
-
+  //FONT SIZE
+  const [fontSize, setFontSize] = useState(16)
   return (
     <>
       {clicked ? (
         <div>
-            <Editor editorState={editorState} onChange={onChange} />
-            <h1>Type Here</h1>
+          <div style={{ fontSize: `${fontSize}px` }}  className="text-editor-div">
+            <TextEditor fontSize={fontSize} setFontSize={setFontSize} onTextChange={handleTextChange} />
+          </div>
+            <p>Number of characters: {text.length}</p>
+          <h1>Type Here</h1>
           <form className="mail-form" onSubmit={handleSubmit}>
             <label>
               Input 1:
               <input
-              className="mail-content"
+                className="mail-content"
                 type="text"
                 name="content"
                 placeholder="Content"
@@ -135,9 +122,9 @@ function Home() {
         </div>
       ) : (
         <div className="home-div" onClick={handleFlagClick}>
-            <h1 className="mail-it-header">Mail It Man</h1>
-            <p>Click to start</p>
-          <img  className="flagImg" src={flagPic} />
+          <h1 className="mail-it-header">Mail It Man</h1>
+          <p>Click to start</p>
+          <img className="flagImg" src={flagPic} />
         </div>
       )}
     </>
