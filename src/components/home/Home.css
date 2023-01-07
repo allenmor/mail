@@ -1,0 +1,47 @@
+.home-div {
+    width: 100%;
+    height: 100%;
+}
+
+.mail-it-header {
+    font-size: 36px;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    margin: 20px 0;
+  }
+  
+  .mail-it-header:hover {
+    color: #999;
+  }
+  
+  .mail-it-header span {
+    color: #f60;
+  }
+  
+
+.flagImg{
+    display: block;
+    margin: auto;
+    width: 50vh;
+}
+
+.mail-content {
+    width: 75%;
+    height: 80%;
+    vertical-align: top;
+}
+.mail-form {
+    height: 100vh;
+}
+
+
+@media (max-width: 600px) {
+    /* styles to apply when viewport width is less than 600px */
+    .flagImg{
+        width: 97%;
+        display: block;
+        margin: auto;
+    }
+  }
+  
