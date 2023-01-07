@@ -11,7 +11,7 @@ function Home() {
   const [mail, setMail] = useState([]);
   const mailCollection = collection(db, "mail");
   const [clicked, setClicked] = useState(false);
-
+  const [pages, setPages] = useState(1)
   //GET MAIL
   useEffect(() => {
     const getMail = async () => {
@@ -70,6 +70,64 @@ function Home() {
   // Define a function to update the text in the App component
   const handleTextChange = (newText) => {
     setText(newText);
+    const getNumberOfPages = (fontSize) => {
+        function count500(str, amount=0) {
+            let numberOfTimes500 = 1
+            if (str.length > amount) {
+              numberOfTimes500 = Math.floor(str.length / amount) + 1;
+              console.log(str.length);
+            }
+            return numberOfTimes500;
+          }
+        switch (+fontSize) {
+            case 10:
+                const numberOfTimes4115 = count500(text, 4115);
+                console.log(numberOfTimes4115);
+                setPages(numberOfTimes4115)
+                // console.log(text.length,'blahdf');
+              break;
+            case 12:
+
+                const numberOfTimes2800 = count500(text, 2800);
+                console.log(numberOfTimes2800);
+                setPages(numberOfTimes2800)
+              break;
+            case 14:
+                const numberOfTimes2095 = count500(text, 2095);
+                console.log(numberOfTimes2095);
+                setPages(numberOfTimes2095)
+              break;
+            case 16:
+                const numberOfTimes1555 = count500(text, 1555);
+                console.log(numberOfTimes1555);
+                setPages(numberOfTimes1555)
+              break;
+            case 18:
+                const numberOfTimes1235 = count500(text, 1235);
+                console.log(numberOfTimes1235);
+                setPages(numberOfTimes1235)
+              break;
+            case 20:
+                const numberOfTimes1003 = count500(text, 1003);
+                console.log(numberOfTimes1003);
+                setPages(numberOfTimes1003)
+              break;
+            case 22:
+                const numberOfTimes831 = count500(text, 831);
+                console.log(numberOfTimes831);
+                setPages(numberOfTimes831)
+              break;
+            case 24:
+                const numberOfTimes695 = count500(text, 695);
+                console.log(numberOfTimes695);
+                setPages(numberOfTimes695)
+              break;
+            }          
+        
+      }
+      getNumberOfPages(fontSize, text.length)
+
+
   };
   //FONT SIZE
   const [fontSize, setFontSize] = useState(16)
@@ -81,6 +139,7 @@ function Home() {
             <TextEditor fontSize={fontSize} setFontSize={setFontSize} onTextChange={handleTextChange} />
           </div>
             <p>Number of characters: {text.length}</p>
+            <p>Number of pages: {pages}</p>
           <h1>Type Here</h1>
           <form className="mail-form" onSubmit={handleSubmit}>
             <label>

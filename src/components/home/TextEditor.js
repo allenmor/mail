@@ -47,6 +47,8 @@ const TextEditor = ({ onTextChange, setFontSize, fontSize }) => {
     const handleArrowClick = () => {
         console.log('arrow clicked');
       };
+
+      
     
   return (
     <>
@@ -54,8 +56,6 @@ const TextEditor = ({ onTextChange, setFontSize, fontSize }) => {
       <label>
         Font size:
         <select value={fontSize} onChange={handleFontSizeChange}>
-          <option value={6}>6</option>
-          <option value={8}>8</option>
           <option value={10}>10</option>
           <option value={12}>12</option>
           <option value={14}>14</option>
@@ -64,17 +64,11 @@ const TextEditor = ({ onTextChange, setFontSize, fontSize }) => {
           <option value={20}>20</option>
           <option value={22}>22</option>
           <option value={24}>24</option>
-          <option value={26}>26</option>
-          <option value={28}>28</option>
-          <option value={30}>30</option>
-          <option value={32}>32</option>
-          <option value={34}>34</option>
-          <option value={36}>36</option>
         </select>
       </label>
     </div>
       <Editor editorState={editorState} onChange={onChange} />
-      <div className="arrow-container" onClick={handleArrowClick}>
+      <div style={{ fontSize: `16px` }} className="arrow-container" onClick={handleArrowClick}>
         <span className="arrow">➤</span>
       </div>
     </>
